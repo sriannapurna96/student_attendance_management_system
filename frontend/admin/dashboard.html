@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="wrapper">
+
+    <div class="sidebar">
+        <h2>🏠 Admin<br>Dashboard</h2>
+
+        <div class="menu">
+            <a href="#" onclick="showSection('dashboard')">📊 Dashboard</a>
+
+            <div class="menu-item" onclick="toggleMenu(this)">🎓 Student</div>
+            <div class="submenu">
+                <a href="#" onclick="showSection('addStudent')">Add Student</a>
+                <a href="#" onclick="showSection('studentList'); loadStudents()">Student List</a>
+            </div>
+
+            <div class="menu-item" onclick="toggleMenu(this)">👩‍🏫 Faculty</div>
+            <div class="submenu">
+                <a href="#" onclick="showSection('faculty')">Add Faculty</a>
+                <a href="#" onclick="showSection('facultyList'); loadFaculty()">Faculty List</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- DASHBOARD -->
+        <div class="card section" id="dashboard">
+            <h2>Dashboard Overview</h2>
+            <div class="stats">
+                <div class="stat-box">Total Students<br><b id="totalStudents">0</b></div>
+                <div class="stat-box">Total Faculty<br><b id="totalFaculty">0</b></div>
+            </div>
+        </div>
+
+        <!-- ADD STUDENT -->
+        <div class="card section" id="addStudent" style="display:none;">
+            <h2>Add Student</h2>
+
+            <input type="text" id="name" placeholder="Student Name">
+            <input type="text" id="reg" placeholder="Register Number">
+
+            <!-- DROPDOWN -->
+            <select id="course">
+                <option value="">Select Department</option>
+                <option value="CSE">CSE</option>
+                <option value="ECE">ECE</option>
+                <option value="EEE">EEE</option>
+                <option value="MECH">MECH</option>
+                <option value="CIVIL">CIVIL</option>
+            </select>
+
+            <input type="text" id="parent" placeholder="Parent Name">
+            <input type="text" id="contact" placeholder="Parent Contact">
+
+            <button onclick="addStudent()">Add Student</button>
+
+            <hr>
+
+            <h3>Upload Students (CSV)</h3>
+            <input type="file" id="csvFile" accept=".csv">
+            <button onclick="uploadCSV()">Upload CSV</button>
+        </div>
+
+        <!-- STUDENT LIST -->
+        <div class="card section" id="studentList" style="display:none;">
+            <h2>Student List</h2>
+            <table border="1" width="100%" cellpadding="8">
+                <thead>
+                    <tr>
+                        <th>Reg No</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Parent Name</th>
+                        <th>Parent Contact</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="studentTableBody"></tbody>
+            </table>
+        </div>
+
+        <!-- ADD FACULTY -->
+        <div class="card section" id="faculty" style="display:none;">
+            <h2>Add Faculty</h2>
+
+            <input type="text" id="f_id" placeholder="Faculty ID">
+            <input type="text" id="f_name" placeholder="Faculty Name">
+
+            <!-- DROPDOWN -->
+            <select id="f_subject">
+                <option value="">Select Subject</option>
+                <option value="Math">Math</option>
+                <option value="Physics">Physics</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Computer Science">Computer Science</option>
+            </select>
+
+            <select id="f_class">
+                <option value="">Select Class</option>
+                <option value="10A">10A</option>
+                <option value="10B">10B</option>
+                <option value="11A">11A</option>
+                <option value="11B">11B</option>
+            </select>
+
+            <button onclick="addFaculty()">Add Faculty</button>
+
+            <hr>
+
+            <h3>Upload Faculty (CSV)</h3>
+            <input type="file" id="facultyCsvFile" accept=".csv">
+            <button onclick="uploadFacultyCSV()">Upload CSV</button>
+        </div>
+
+        <!-- FACULTY LIST -->
+        <div class="card section" id="facultyList" style="display:none;">
+            <h2>Faculty List</h2>
+            <table border="1" width="100%" cellpadding="8">
+                <thead>
+                    <tr>
+                        <th>Faculty ID</th>
+                        <th>Name</th>
+                        <th>Subject</th>
+                        <th>Assigned Class</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="facultyTableBody"></tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<!-- FIXED PATHS -->
+<script src="../js/common.js"></script>
+<script src="../js/admin.js"></script>
+
+</body>
+</html>

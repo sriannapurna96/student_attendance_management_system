@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parent Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="wrapper">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>👨‍👩‍👧 Parent<br>Dashboard</h2>
+
+        <div class="menu">
+            <div class="menu-item" onclick="showSection('student')">🎓 Child Info</div>
+            <div class="menu-item" onclick="showSection('attendance')">📊 Attendance</div>
+            <div class="menu-item" onclick="showSection('faculty')">👨‍🏫 Faculty</div>
+            <div class="menu-item" onclick="showSection('timetable')">🗓 Timetable</div>
+            <div class="menu-item" onclick="showSection('notifications')">🔔 Notifications</div>
+
+            <button class="logout" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <!-- CHILD INFO -->
+        <div class="card section" id="student">
+            <h2>Student Details</h2>
+            <p><b>Name:</b> Ravi Kumar</p>
+            <p><b>Register No:</b> 21CS015</p>
+            <p><b>Course:</b> B.Sc Computer Science</p>
+            <p><b>Semester:</b> IV</p>
+        </div>
+
+        <!-- ATTENDANCE -->
+        <div class="card section" id="attendance">
+            <h2>Attendance Report</h2>
+
+            <p><b>Overall Attendance:</b>
+                <span id="overallAttendance">72</span>%
+            </p>
+
+            <table class="data-table">
+                <tr>
+                    <th>Subject</th>
+                    <th>Attendance %</th>
+                </tr>
+                <tr>
+                    <td>Data Structures</td>
+                    <td>70%</td>
+                </tr>
+                <tr>
+                    <td>Operating Systems</td>
+                    <td>74%</td>
+                </tr>
+                <tr>
+                    <td>DBMS</td>
+                    <td>72%</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- FACULTY DETAILS -->
+        <div class="card section" id="faculty">
+            <h2>Faculty Details</h2>
+
+            <table class="data-table">
+                <tr>
+                    <th>Subject</th>
+                    <th>Faculty Name</th>
+                    <th>Contact</th>
+                </tr>
+                <tr>
+                    <td>Data Structures</td>
+                    <td>Dr. S. Ramesh</td>
+                    <td>ramesh@college.edu</td>
+                </tr>
+                <tr>
+                    <td>Operating Systems</td>
+                    <td>Ms. Anitha</td>
+                    <td>anitha@college.edu</td>
+                </tr>
+                <tr>
+                    <td>DBMS</td>
+                    <td>Mr. Karthik</td>
+                    <td>karthik@college.edu</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- TIMETABLE -->
+        <div class="card section" id="timetable">
+            <h2>Weekly Timetable</h2>
+
+            <table class="data-table">
+                <tr>
+                    <th>Day</th>
+                    <th>9–10 AM</th>
+                    <th>10–11 AM</th>
+                    <th>11–12 PM</th>
+                </tr>
+                <tr>
+                    <td>Monday</td>
+                    <td>DS</td>
+                    <td>OS</td>
+                    <td>DBMS</td>
+                </tr>
+                <tr>
+                    <td>Tuesday</td>
+                    <td>OS</td>
+                    <td>DS</td>
+                    <td>DBMS</td>
+                </tr>
+                <tr>
+                    <td>Wednesday</td>
+                    <td>DBMS</td>
+                    <td>OS</td>
+                    <td>DS</td>
+                </tr>
+                <tr>
+                    <td>Thursday</td>
+                    <td>DS</td>
+                    <td>DBMS</td>
+                    <td>OS</td>
+                </tr>
+                <tr>
+                    <td>Friday</td>
+                    <td>OS</td>
+                    <td>DS</td>
+                    <td>Lab</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- NOTIFICATIONS -->
+        <div class="card section" id="notifications">
+            <h2>Notifications</h2>
+            <div id="alertBox"></div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+}
+
+function logout() {
+    window.location.href = "../login.html";
+}
+
+/* ATTENDANCE ALERT */
+function checkAttendance() {
+    const attendance = parseInt(document.getElementById("overallAttendance").innerText);
+    const alertBox = document.getElementById("alertBox");
+
+    if (attendance < 75) {
+        alertBox.innerHTML = `
+            <p style="color:red; font-weight:bold;">
+                ⚠ Attendance Alert!
+            </p>
+            <p>
+                Your child has <b>${attendance}%</b> attendance.
+                Minimum required is 75%.
+            </p>
+        `;
+    } else {
+        alertBox.innerHTML = `
+            <p style="color:green; font-weight:bold;">
+                ✅ Attendance is satisfactory.
+            </p>
+        `;
+    }
+}
+
+showSection('attendance');
+checkAttendance();
+</script>
+
+</body>
+</html>

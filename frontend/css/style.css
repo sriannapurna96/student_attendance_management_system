@@ -1,0 +1,273 @@
+/* ===================== GLOBAL ===================== */
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    
+    background: #f4f6f9;
+}
+
+/* ===================== LOGIN PAGE ===================== */
+.login-page {
+    height: 100vh;
+    background: url("../assets/bg.jpg") no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 60px;
+}
+
+/* LEFT TEXT */
+.login-text {
+    color: #fff;
+    max-width: 500px;
+}
+
+.login-text h1 {
+    font-size: 42px;
+    line-height: 1.2;
+}
+
+.login-text span {
+    color: #f1c40f;
+}
+
+.login-text p {
+    margin-top: 15px;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* LOGIN CARD */
+.login-box {
+    width: 350px;
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.login-box .icon {
+    width: 60px;
+    height: 60px;
+    background: url("../assets/user.png") no-repeat center/cover;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+}
+
+.login-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.login-box select,
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 12px;
+    background: #4a77d4;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* PASSWORD ICON */
+.password-box {
+    position: relative;
+}
+
+.password-box i {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #777;
+}
+
+/* ===================== DASHBOARD LAYOUT ===================== */
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 260px;
+    min-height: 100vh;
+    background: #003b8e;
+    color: white;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* MENU */
+.menu-item {
+    padding: 12px;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* SUB MENU */
+.submenu {
+    display: none;
+    margin-left: 15px;
+}
+
+.submenu a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 6px 0;
+}
+
+.submenu a:hover {
+    background: rgba(255,255,255,0.15);
+}
+
+/* LOGOUT */
+.logout {
+    margin-top: 30px;
+    background: red;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* ===================== CONTENT AREA (FIXED) ===================== */
+.content {
+    flex: 1;
+    padding: 40px;
+    background: #f4f6f9;   /* FULL WIDTH BACKGROUND */
+}
+
+/* CARD (FIXED) */
+.card {
+    width: 100%;          /* FULL WIDTH */
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* SECTION VISIBILITY */
+.section {
+    display: none;
+}
+
+/* FORM INPUTS */
+.card input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* BUTTON */
+.card button {
+    width: 100%;
+    padding: 12px;
+    background: #1f4fb2;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.card button:hover {
+    background: #163d8f;
+}
+
+/* ===================== TABLES ===================== */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.data-table th,
+.data-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.data-table th {
+    background: #2c3e50;
+    color: white;
+}
+
+/* ATTENDANCE STATUS */
+.present {
+    color: green;
+    font-weight: bold;
+}
+
+.absent {
+    color: rgb(26, 177, 197);
+    font-weight: bold;
+}
+
+/* ACTION BUTTONS */
+.btn-edit {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-delete {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.sidebar a,
+.sidebar a.active {
+    text-decoration: none !important;
+    border: none !important;
+}
+
+.sidebar a::after {
+    display: none !important;
+}
+.sidebar a {
+    color: white;              /* force white text */
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+.sidebar a:visited {
+    color: white;              /* stop red/purple after click */
+}
+
+.sidebar a:active {
+    color: white;
+}

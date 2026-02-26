@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Faculty Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .feedback-select {
+            padding: 5px;
+        }
+        .feedback-text {
+            width: 95%;
+            padding: 5px;
+            font-size: 13px;
+        }
+        .save-btn {
+            padding: 4px 10px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>👩‍🏫 Faculty<br>Dashboard</h2>
+
+        <div class="menu">
+            <div class="menu-item" onclick="showSection('profile')">👤 Profile</div>
+            <div class="menu-item" onclick="showSection('start')">▶ Start Attendance</div>
+            <div class="menu-item" onclick="showSection('history')">📜 Attendance History</div>
+            <div class="menu-item" onclick="showSection('attendance')">📊 Mark Attendance</div>
+            <div class="menu-item" onclick="showSection('feedback')">💬 Attendance Feedback</div>
+            <div class="menu-item" onclick="showSection('students')">🎓 Student List</div>
+            <div class="menu-item" onclick="showSection('request')">📩 Student Registration Request</div>
+
+            <button class="logout" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- CONTENT AREA -->
+    <div class="content">
+        <!-- STUDENT REGISTRATION REQUEST -->
+<div class="card section" id="request">
+    <h2>Student Registration Request (Admin Approval)</h2>
+
+    <p style="font-size:13px;color:#666;">
+        Faculty cannot add students directly. Requests will be reviewed by Admin.
+    </p>
+
+    <table class="data-table">
+        <tr>
+            <th>Register No</th>
+            <td><input type="text" id="reqReg" placeholder="Eg: 21CS045"></td>
+        </tr>
+        <tr>
+            <th>Student Name</th>
+            <td><input type="text" id="reqName" placeholder="Full Name"></td>
+        </tr>
+        <tr>
+            <th>Department</th>
+            <td>
+                <select id="reqDept">
+                    <option>B.Sc CS</option>
+                    <option>BCA</option>
+                    <option>M.Sc CS</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Reason</th>
+            <td>
+                <input type="text" id="reqReason"
+                       placeholder="Late admission / Transfer / Missing record">
+            </td>
+        </tr>
+    </table>
+
+    <br>
+    <button class="save-btn" onclick="sendRequest()">Send Request to Admin</button>
+
+    <p id="reqMsg" style="margin-top:10px;font-size:13px;"></p>
+</div>
+
+        <!-- PROFILE -->
+        <div class="card section" id="profile">
+            <h2>Faculty Profile</h2>
+            <table class="data-table">
+                <tr><th>Faculty ID</th><td>FAC101</td></tr>
+                <tr><th>Name</th><td>Dr. S. Ramesh</td></tr>
+                <tr><th>Department</th><td>Computer Science</td></tr>
+                <tr><th>Email</th><td>ramesh@college.edu</td></tr>
+                <tr><th>Subjects</th><td>Data Structures, OS</td></tr>
+            </table>
+        </div>
+
+        <!-- START ATTENDANCE -->
+        <div class="card section" id="start">
+            <h2>Start Attendance</h2>
+            <select>
+                <option>Select Class</option>
+                <option>B.Sc CS - IV</option>
+            </select>
+            <select>
+                <option>Select Subject</option>
+                <option>Data Structures</option>
+            </select>
+            <br><br>
+            <button class="btn-edit">Generate QR Code</button>
+            <p style="margin-top:10px;">[ QR CODE HERE ]</p>
+            <p style="font-size:13px;color:#555;">QR valid for 2 minutes</p>
+        </div>
+
+        <!-- ATTENDANCE HISTORY -->
+        <div class="card section" id="history">
+            <h2>Attendance History</h2>
+            <table class="data-table">
+                <tr><th>Date</th><th>Present</th><th>Absent</th></tr>
+                <tr><td>25-01-26</td><td>48</td><td>5</td></tr>
+                <tr><td>24-01-26</td><td>46</td><td>7</td></tr>
+            </table>
+        </div>
+
+        <!-- MARK ATTENDANCE -->
+        <div class="card section" id="attendance">
+            <h2>Mark Attendance</h2>
+            <p><b>Subject:</b> Data Structures</p>
+            <p><b>Date:</b> 2026-01-25</p>
+
+            <table class="data-table">
+                <tr>
+                    <th>Register No</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>21CS001</td>
+                    <td>Arjun Kumar</td>
+                    <td><span class="present">Present</span></td>
+                </tr>
+                <tr>
+                    <td>21CS002</td>
+                    <td>Anjali Devi</td>
+                    <td><span class="absent">Absent</span></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- ATTENDANCE FEEDBACK -->
+        <div class="card section" id="feedback">
+            <h2>Attendance Feedback (Subject-wise)</h2>
+            <p><b>Subject:</b> Data Structures</p>
+
+            <table class="data-table">
+                <tr>
+                    <th>Register No</th>
+                    <th>Name</th>
+                    <th>Feedback Type</th>
+                    <th>Remarks</th>
+                    <th>Action</th>
+                </tr>
+
+                <tr>
+                    <td>21CS001</td>
+                    <td>Arjun Kumar</td>
+                    <td>
+                        <select class="feedback-select">
+                            <option>Excellent Attendance</option>
+                            <option>Good Attendance</option>
+                            <option>Average – Needs Improvement</option>
+                            <option>Poor Attendance</option>
+                            <option>Irregular – Warning</option>
+                            <option>Medical / Approved Leave</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="feedback-text" placeholder="Optional remarks">
+                    </td>
+                    <td>
+                        <button class="save-btn" onclick="saveFeedback()">Save</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>21CS002</td>
+                    <td>Anjali Devi</td>
+                    <td>
+                        <select class="feedback-select">
+                            <option>Excellent Attendance</option>
+                            <option>Good Attendance</option>
+                            <option>Average – Needs Improvement</option>
+                            <option>Poor Attendance</option>
+                            <option selected>Irregular – Warning</option>
+                            <option>Medical / Approved Leave</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" class="feedback-text" value="Attendance below required percentage">
+                    </td>
+                    <td>
+                        <button class="save-btn" onclick="saveFeedback()">Save</button>
+                    </td>
+                </tr>
+
+            </table>
+
+            <p style="font-size:13px;color:#555;margin-top:10px;">
+                Feedback is visible to students in their dashboard.
+            </p>
+        </div>
+
+        <!-- STUDENT LIST -->
+        <div class="card section" id="students">
+            <h2>Student List</h2>
+            <table class="data-table">
+                <tr>
+                    <th>Register No</th>
+                    <th>Name</th>
+                    <th>Course</th>
+                    <th>Semester</th>
+                </tr>
+                <tr>
+                    <td>21CS001</td>
+                    <td>Arjun Kumar</td>
+                    <td>B.Sc CS</td>
+                    <td>IV</td>
+                </tr>
+                <tr>
+                    <td>21CS002</td>
+                    <td>Anjali Devi</td>
+                    <td>B.Sc CS</td>
+                    <td>IV</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+    
+</div>
+
+<script>
+function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+}
+
+function logout() {
+    window.location.href = "../login.html";
+}
+
+function saveFeedback() {
+    alert("Attendance feedback saved successfully!");
+}
+
+showSection('attendance');
+
+function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+}
+
+function logout() {
+    window.location.href = "../login.html";
+}
+
+function saveFeedback() {
+    alert("Attendance feedback saved successfully!");
+}
+
+/* ===== FACULTY REQUEST TO ADMIN ===== */
+function sendRequest() {
+    fetch("http://127.0.0.1:5000/faculty/request-student", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            reg_no: document.getElementById("reqReg").value,
+            name: document.getElementById("reqName").value,
+            department: document.getElementById("reqDept").value,
+            reason: document.getElementById("reqReason").value
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("reqMsg").innerText = data.msg;
+        document.getElementById("reqMsg").style.color = "green";
+    })
+    .catch(() => {
+        alert("Backend error or server not running");
+    });
+}
+
+showSection('attendance');
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Login</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        .error-msg {
+            color: red;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+            text-align: center;
+        }
+        .success-msg {
+            color: green;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-page">
+
+    <!-- LEFT SIDE TEXT -->
+    <div class="login-text">
+        <h1>
+            SMART STUDENT <span>ATTENDANCE MANAGEMENT</span><br>
+            SYSTEM
+        </h1>
+        <p>
+            Education is a lifelong investment. It opens doors to opportunity,
+            builds lasting skills, and shapes a successful future.
+        </p>
+    </div>
+
+    <!-- LOGIN BOX -->
+    <div class="login-box">
+        <div class="icon"></div>
+        <h2>User Login</h2>
+
+        <select id="role">
+            <option value="">Select Role</option>
+            <option value="admin">Admin</option>
+            <option value="faculty">Faculty</option>
+            <option value="student">Student</option>
+            <option value="parent">Parent</option>
+        </select>
+
+        <input type="text" id="username" placeholder="Username">
+
+        <div class="password-box">
+            <input type="password" id="password" placeholder="Password">
+            <i class="fa-solid fa-eye" onclick="togglePassword()"></i>
+        </div>
+
+        <button onclick="login()">Login</button>
+
+        <!-- MESSAGE AREA -->
+        <div class="error-msg" id="errorMsg"></div>
+        <div class="success-msg" id="successMsg"></div>
+
+        <p style="font-size:12px;color:#555;margin-top:10px;text-align:center;">
+            New users can be added only by Admin
+        </p>
+    </div>
+
+</div>
+
+<script>
+function togglePassword() {
+    const pwd = document.getElementById("password");
+    pwd.type = pwd.type === "password" ? "text" : "password";
+}
+
+function login() {
+    const role = document.getElementById("role").value;
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    const errorMsg = document.getElementById("errorMsg");
+    const successMsg = document.getElementById("successMsg");
+
+    // reset messages
+    errorMsg.style.display = "none";
+    successMsg.style.display = "none";
+
+    fetch("http://127.0.0.1:5000/login", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            username: username,
+            password: password,
+            role: role
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "error") {
+            // show backend-provided error message
+            errorMsg.innerText = data.message || "Login failed";
+            errorMsg.style.display = "block";
+        } else {
+            successMsg.innerText = data.message || "Login successful";
+            successMsg.style.display = "block";
+
+            // use role returned by backend
+            const userRole = data.role || role;
+
+            setTimeout(() => {
+                window.location.href = userRole + "/dashboard.html";
+            }, 800);
+        }
+    })
+    .catch(() => {
+        errorMsg.innerText = "Server not reachable";
+        errorMsg.style.display = "block";
+    });
+}
+</script>
+
+</body>
+</html>

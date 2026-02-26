@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="wrapper">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>🎓 Student<br>Dashboard</h2>
+
+        <div class="menu">
+            <div class="menu-item" onclick="showSection('profile')">👤 Profile</div>
+            <div class="menu-item" onclick="showSection('attendance')">📊 Attendance</div>
+            <div class="menu-item" onclick="showSection('alerts')">⚠ Alerts</div>
+            <div class="menu-item" onclick="showSection('feedback')">📝 Feedback</div>
+            <div class="menu-item" onclick="showSection('reports')">📄 Reports</div>
+
+            <button class="logout" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <!-- PROFILE -->
+        <div class="card section" id="profile">
+            <h2>My Profile</h2>
+            <table class="data-table">
+                <tr><th>Register Number</th><td>21CS001</td></tr>
+                <tr><th>Name</th><td>Arjun Kumar</td></tr>
+                <tr><th>Course</th><td>B.Sc Computer Science</td></tr>
+                <tr><th>Semester</th><td>IV</td></tr>
+                <tr><th>Email</th><td>arjun21@college.edu</td></tr>
+            </table>
+        </div>
+
+        <!-- ATTENDANCE -->
+        <div class="card section" id="attendance">
+            <h2>My Attendance</h2>
+
+            <!-- OVERALL -->
+            <div style="text-align:center; margin-bottom:20px;">
+                <h3>Overall Attendance</h3>
+                <div id="overallAttendance"
+                     style="font-size:36px; font-weight:bold; color:#1f4fb2;">
+                    72
+                </div>%
+            </div>
+
+            <!-- SUBJECT-WISE -->
+            <table class="data-table">
+                <tr>
+                    <th>Subject</th>
+                    <th>Total Classes</th>
+                    <th>Present</th>
+                    <th>Absent</th>
+                    <th>Percentage</th>
+                </tr>
+                <tr>
+                    <td>Data Structures</td>
+                    <td>40</td>
+                    <td>28</td>
+                    <td>12</td>
+                    <td class="absent">70%</td>
+                </tr>
+                <tr>
+                    <td>Operating Systems</td>
+                    <td>38</td>
+                    <td>28</td>
+                    <td>10</td>
+                    <td class="absent">74%</td>
+                </tr>
+            </table>
+
+            <p style="font-size:13px;color:#555;margin-top:10px;">
+                Attendance data is view-only and maintained by faculty.
+            </p>
+        </div>
+
+        <!-- ALERTS -->
+        <div class="card section" id="alerts">
+            <h2>Attendance Alerts</h2>
+            <div id="alertBox"></div>
+        </div>
+
+        <!-- FEEDBACK -->
+        <div class="card section" id="feedback">
+            <h2>Subject Feedback</h2>
+
+            <label>Subject</label>
+            <select disabled>
+                <option>Data Structures</option>
+                <option>Operating Systems</option>
+            </select>
+
+            <label style="margin-top:10px;">Faculty</label>
+            <select disabled>
+                <option>Dr. S. Ramesh</option>
+                <option>Prof. Anjali Devi</option>
+            </select>
+
+            <label style="margin-top:10px;">Feedback</label>
+            <textarea rows="4" placeholder="Enter your feedback here..."></textarea>
+
+            <br><br>
+            <button class="btn-edit">Submit Feedback</button>
+
+            <p style="font-size:13px;color:#555;margin-top:10px;">
+                Feedback is anonymous and does not affect attendance records.
+            </p>
+        </div>
+
+        <!-- REPORTS -->
+        <div class="card section" id="reports">
+            <h2>Attendance Report</h2>
+            <ul id="reportStatus" style="line-height:1.8;"></ul>
+        </div>
+
+    </div>
+</div>
+
+<script>
+function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+}
+
+function logout() {
+    window.location.href = "../login.html";
+}
+
+/* ATTENDANCE EVALUATION */
+function evaluateAttendance() {
+    const attendance = parseInt(document.getElementById("overallAttendance").innerText);
+    const alertBox = document.getElementById("alertBox");
+    const report = document.getElementById("reportStatus");
+
+    if (attendance < 75) {
+        alertBox.innerHTML = `
+            <p style="color:red;font-weight:bold;">
+                ⚠ Attendance below 75%
+            </p>
+            <p>You are <b>NOT ELIGIBLE</b> for semester examinations.</p>
+            <p>Please meet your class advisor.</p>
+        `;
+        report.innerHTML = `
+            <li>Attendance Eligibility: <b style="color:red;">Not Eligible</b></li>
+            <li>Current Semester Status: <b>Active</b></li>
+        `;
+    } else {
+        alertBox.innerHTML = `
+            <p style="color:green;font-weight:bold;">
+                ✅ Attendance satisfactory
+            </p>
+        `;
+        report.innerHTML = `
+            <li>Attendance Eligibility: <b>Eligible</b></li>
+            <li>Current Semester Status: <b>Active</b></li>
+        `;
+    }
+}
+
+showSection('attendance');
+evaluateAttendance();
+</script>
+
+</body>
+</html>
